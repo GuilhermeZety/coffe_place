@@ -1,0 +1,47 @@
+name: coffe_place
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  animated_theme_switcher: ^2.0.10
+  flutter:
+    sdk: flutter
+  flutter_animate: ^4.5.0
+  flutter_localizations:
+    sdk: flutter
+  gap: ^3.0.1
+  localization: ^2.1.1
+  shared_preferences: ^2.2.3
+  signals: ^5.2.2
+  toastification: ^2.0.0
+  universal_io: ^2.2.2
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/translations/
+
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather/Merriweather-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Merriweather/Merriweather-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Merriweather/Merriweather-Black.ttf
+          weight: 900
+          
