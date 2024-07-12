@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:coffee_place/app/core/constants/app_assets.dart';
 import 'package:coffee_place/app/core/constants/app_colors.dart';
 import 'package:coffee_place/app/core/constants/app_fonts.dart';
 import 'package:coffee_place/app/core/constants/app_theme.dart';
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppTheme().themeMode.value == ThemeMode.dark ? 'assets/texture_dark.png' : 'assets/texture_light.png'),
+            image: MemoryImage(AppAssets.bytes.texture),
             opacity: 0.2,
             fit: BoxFit.cover,
           ),
@@ -87,14 +88,18 @@ class _HomePageState extends State<HomePage> {
             Positioned(
               top: context.height * 0.2,
               left: context.width * 0.1,
-              child: Text(
-                'Coffe Place',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: AppFonts.black,
-                  color: AppColors.title,
+              child: Material(
+                color: Colors.transparent,
+                elevation: 0,
+                child: Text(
+                  'Coffe Place',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: AppFonts.black,
+                    color: AppColors.title,
+                  ),
                 ),
-              ),
+              ).hero('logo'),
             ),
             Positioned(
               right: 100,

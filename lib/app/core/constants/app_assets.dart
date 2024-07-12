@@ -1,9 +1,34 @@
 // ignore_for_file: unused_field
 
+import 'dart:typed_data';
+
+import 'package:coffee_place/app/core/constants/app_theme.dart';
+import 'package:coffee_place/app/core/utils/utils.dart';
+import 'package:flutter/material.dart';
+
 class AppAssets {
   static AppImages images = AppImages();
   static final AppSvgs svgs = AppSvgs();
   static final AppExternalAudio externalAudio = AppExternalAudio();
+
+  static AppBytes bytes = AppBytes();
+}
+
+class AppBytes {
+  Future init() async {
+    var bytes = await (
+      Utils.getAssetsBytes('assets/texture_dark.png'),
+      Utils.getAssetsBytes('assets/texture_light.png'),
+    ).wait;
+
+    darkTexture = bytes.$1;
+    lightTexture = bytes.$2;
+  }
+
+  Uint8List? darkTexture;
+  Uint8List? lightTexture;
+
+  Uint8List get texture => AppTheme().themeMode.value == ThemeMode.dark ? darkTexture! : lightTexture!;
 }
 
 class AppExternalAudio {
@@ -15,7 +40,7 @@ class AppExternalAudio {
 }
 
 class AppImages {
-  static const String _path = 'assets/images';
+  String get texture => AppTheme().themeMode.value == ThemeMode.dark ? 'assets/texture_dark.png' : 'assets/texture_light.png';
 }
 
 class AppSvgs {
