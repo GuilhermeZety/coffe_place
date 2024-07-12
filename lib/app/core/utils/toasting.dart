@@ -1,4 +1,4 @@
-import 'package:coffe_place/app/core/constants/app_fonts.dart';
+import 'package:coffee_place/app/core/constants/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 

@@ -1,6 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:coffe_place/app/core/constants/app_colors.dart';
-import 'package:coffe_place/app/core/constants/app_theme.dart';
+import 'package:coffee_place/app/core/constants/app_colors.dart';
+import 'package:coffee_place/app/core/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

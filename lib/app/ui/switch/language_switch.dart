@@ -1,4 +1,4 @@
-import 'package:coffe_place/app/core/location_session.dart';
+import 'package:coffee_place/app/core/location_session.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

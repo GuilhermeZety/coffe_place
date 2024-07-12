@@ -1,3 +1,3 @@
-# coffe_place
+# coffee_place
 
 A new Flutter project.

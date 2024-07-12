@@ -1,7 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:coffe_place/app/core/constants/app_theme.dart';
-import 'package:coffe_place/app/core/location_session.dart';
-import 'package:coffe_place/app/modules/home/presentation/pages/home_page.dart';
+import 'package:coffee_place/app/core/constants/app_theme.dart';
+import 'package:coffee_place/app/core/location_session.dart';
+import 'package:coffee_place/app/modules/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';

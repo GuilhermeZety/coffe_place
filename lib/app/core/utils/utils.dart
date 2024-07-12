@@ -1,4 +1,4 @@
-import 'package:coffe_place/app/core/utils/toasting.dart';
+import 'package:coffee_place/app/core/utils/toasting.dart';
 import 'package:flutter/services.dart';
 
 class Utils {

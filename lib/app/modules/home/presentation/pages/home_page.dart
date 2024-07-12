@@ -1,16 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:coffe_place/app/core/constants/app_colors.dart';
-import 'package:coffe_place/app/core/constants/app_theme.dart';
-import 'package:coffe_place/app/core/extensions/widget_extension.dart';
-import 'package:coffe_place/app/core/location_session.dart';
-import 'package:coffe_place/app/core/utils/toasting.dart';
-import 'package:coffe_place/app/ui/switch/theme_switch.dart';
-import 'package:coffe_place/main.dart';
+import 'package:coffee_place/app/core/constants/app_colors.dart';
+import 'package:coffee_place/app/core/constants/app_fonts.dart';
+import 'package:coffee_place/app/core/constants/app_theme.dart';
+import 'package:coffee_place/app/core/extensions/context_extension.dart';
+import 'package:coffee_place/app/core/extensions/widget_extension.dart';
+import 'package:coffee_place/app/core/location_session.dart';
+import 'package:coffee_place/app/modules/home/presentation/home_service.dart';
+import 'package:coffee_place/app/ui/player_item.dart';
+import 'package:coffee_place/app/ui/switch/theme_switch.dart';
+import 'package:coffee_place/main.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:signals/signals_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,8 +27,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  HomeService service = HomeService();
+  List<(String title, AudioPlayer player)> players = [];
+  @override
+  void dispose() {
+    for (var player in players) {
+      player.$2.dispose();
+    }
+    super.dispose();
+  }
+
   @override
   void initState() {
+    service.getAudioPlayers().then((value) {
+      players = value;
+      if (mounted) setState(() {});
+    });
     LocalizatiionSession().locale.listen(context, () {
       if (mounted) setState(() {});
     });
@@ -51,8 +71,8 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Image.asset(
                   AppTheme().themeMode.value == ThemeMode.dark ? 'assets/objects_dark.png' : 'assets/objects_light.png',
-                  width: 500,
-                ),
+                  width: 700,
+                ).pRight(100),
               ),
             ),
             AppBar(
@@ -64,10 +84,25 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ).pRight(30),
-            Text(
-              'Coffe Place',
-              style: Theme.of(context).textTheme.titleLarge,
-            ).pLeft(40).pTop(40),
+            Positioned(
+              top: context.height * 0.2,
+              left: context.width * 0.1,
+              child: Text(
+                'Coffe Place',
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: AppFonts.black,
+                  color: AppColors.title,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 100,
+              left: 100,
+              bottom: 100,
+              top: 100,
+              child: playerList(),
+            ),
           ],
         ),
       ),
@@ -91,22 +126,22 @@ class _HomePageState extends State<HomePage> {
   Widget configButton() {
     return GestureDetector(
       onTap: () async {
-        var configString = session.prefs.getString('config');
-        if (configString == null) {
-          await session.prefs.setString('config', jsonEncode({'animation_theme_switch': false}));
-          Toasting.success(context, title: 'animation_theme_switch', description: 'false');
-          return;
-        }
-        log(configString);
-        var config = jsonDecode(configString) as Map<String, dynamic>;
+        // var configString = session.prefs.getString('config');
+        // if (configString == null) {
+        //   await session.prefs.setString('config', jsonEncode({'animation_theme_switch': false}));
+        //   Toasting.success(context, title: 'animation_theme_switch', description: 'false');
+        //   return;
+        // }
+        // log(configString);
+        // var config = jsonDecode(configString) as Map<String, dynamic>;
 
-        await session.prefs.setString(
-          'config',
-          jsonEncode({
-            'animation_theme_switch': !config['animation_theme_switch'],
-          }),
-        );
-        Toasting.success(context, title: 'animation_theme_switch', description: (!config['animation_theme_switch']).toString());
+        // await session.prefs.setString(
+        //   'config',
+        //   jsonEncode({
+        //     'animation_theme_switch': !config['animation_theme_switch'],
+        //   }),
+        // );
+        // Toasting.success(context, title: 'animation_theme_switch', description: (!config['animation_theme_switch']).toString());
       },
       child: Container(
         width: 30,
@@ -119,6 +154,31 @@ class _HomePageState extends State<HomePage> {
           Icons.settings_rounded,
           color: AppColors.white,
         ),
+      ),
+    );
+  }
+
+  Widget playerList() {
+    if (players.isEmpty) {
+      return Container();
+    }
+    return SizedBox(
+      width: 300,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: players
+                .map(
+                  (e) => PlayerItem(
+                    title: e.$1,
+                    player: e.$2,
+                  ),
+                )
+                .toList(),
+          ),
+        ],
       ),
     );
   }

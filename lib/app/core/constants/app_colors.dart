@@ -1,10 +1,14 @@
-import 'package:coffe_place/app/core/constants/app_theme.dart';
+import 'package:coffee_place/app/core/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
   static Color get primary => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.gold_500 : AppColors.gold_600;
   static Color get secundary => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.green_300 : AppColors.green_500;
+  static Color get background => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.brown_900 : AppColors.brown_100;
+  static Color get title => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.brown_200 : AppColors.brown_700;
+  static Color get subtitle => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.brown_300 : AppColors.brown_400;
+  static Color get button => AppTheme().themeMode.value == ThemeMode.dark ? AppColors.brown_600 : AppColors.brown_750;
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey_50 = Color(0xFFF0F0F7);

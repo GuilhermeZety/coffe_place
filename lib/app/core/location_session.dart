@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:coffe_place/main.dart';
+import 'package:coffee_place/main.dart';
 import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:universal_io/io.dart';

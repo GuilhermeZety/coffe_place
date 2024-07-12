@@ -1,6 +1,6 @@
 {
-    "name": "coffe_place",
-    "short_name": "coffe_place",
+    "name": "coffee_place",
+    "short_name": "coffee_place",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
