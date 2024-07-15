@@ -10,25 +10,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: subosito/flutter-action@v1
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.x' 
-          channel: 'stable' # Required for web
-
-      - name: Download Dependencies
-        run: flutter pub get
-
-      - name: Build
-        run: flutter build web
-
+          channel: stable
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build web
+      
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
-          force_orphan: true
-          user_name: 'github-ci[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Publish to gh-pages'
