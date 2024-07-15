@@ -32,59 +32,57 @@ class _PlayerItemState extends State<PlayerItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: AppColors.title,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.title,
+              style: TextStyle(
+                color: AppColors.title,
               ),
-              GestureDetector(
-                onTap: () async {
-                  if (widget.player.playing) {
-                    widget.player.pause();
-                  } else {
-                    widget.player.play();
-                  }
-                },
-                child: AnimatedIcon(
-                  icon: AnimatedIcons.play_pause,
-                  progress: widget.player.playing ? const AlwaysStoppedAnimation(1.0) : const AlwaysStoppedAnimation(0.0),
-                  color: AppColors.title,
-                  size: 24,
-                ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                if (widget.player.playing) {
+                  widget.player.pause();
+                } else {
+                  widget.player.play();
+                }
+              },
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: widget.player.playing ? const AlwaysStoppedAnimation(1.0) : const AlwaysStoppedAnimation(0.0),
+                color: AppColors.title,
+                size: 24,
               ),
-            ],
-          ),
-          //volume
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  widget.player.setVolume(widget.player.volume == 0 ? 0.7 : 0);
-                },
-                child: Icon(
-                  widget.player.volume == 0 ? Icons.volume_off_rounded : Icons.volume_up_rounded,
-                  color: AppColors.title,
-                ),
+            ),
+          ],
+        ),
+        //volume
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                widget.player.setVolume(widget.player.volume == 0 ? 0.7 : 0);
+              },
+              child: Icon(
+                widget.player.volume == 0 ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                color: AppColors.title,
               ),
-              const Gap(15),
-              Slider(
-                value: widget.player.volume,
-                onChanged: (value) {
-                  widget.player.setVolume(value);
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            const Gap(15),
+            Slider(
+              value: widget.player.volume,
+              onChanged: (value) {
+                widget.player.setVolume(value);
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

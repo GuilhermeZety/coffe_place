@@ -11,6 +11,7 @@ import 'package:coffee_place/app/core/constants/app_theme.dart';
 import 'package:coffee_place/app/core/extensions/context_extension.dart';
 import 'package:coffee_place/app/core/extensions/widget_extension.dart';
 import 'package:coffee_place/app/core/location_session.dart';
+import 'package:coffee_place/app/core/utils/toasting.dart';
 import 'package:coffee_place/app/modules/home/presentation/home_service.dart';
 import 'package:coffee_place/app/ui/player_item.dart';
 import 'package:coffee_place/app/ui/switch/theme_switch.dart';
@@ -131,22 +132,22 @@ class _HomePageState extends State<HomePage> {
   Widget configButton() {
     return GestureDetector(
       onTap: () async {
-        // var configString = session.prefs.getString('config');
-        // if (configString == null) {
-        //   await session.prefs.setString('config', jsonEncode({'animation_theme_switch': false}));
-        //   Toasting.success(context, title: 'animation_theme_switch', description: 'false');
-        //   return;
-        // }
-        // log(configString);
-        // var config = jsonDecode(configString) as Map<String, dynamic>;
+        var configString = session.prefs.getString('config');
+        if (configString == null) {
+          await session.prefs.setString('config', jsonEncode({'animation_theme_switch': false}));
+          Toasting.success(context, title: 'animation_theme_switch', description: 'false');
+          return;
+        }
+        log(configString);
+        var config = jsonDecode(configString) as Map<String, dynamic>;
 
-        // await session.prefs.setString(
-        //   'config',
-        //   jsonEncode({
-        //     'animation_theme_switch': !config['animation_theme_switch'],
-        //   }),
-        // );
-        // Toasting.success(context, title: 'animation_theme_switch', description: (!config['animation_theme_switch']).toString());
+        await session.prefs.setString(
+          'config',
+          jsonEncode({
+            'animation_theme_switch': !config['animation_theme_switch'],
+          }),
+        );
+        Toasting.success(context, title: 'animation_theme_switch', description: (!config['animation_theme_switch']).toString());
       },
       child: Container(
         width: 30,
